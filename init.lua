@@ -124,3 +124,92 @@ require('lazy').setup({
         }
     }
 })
+
+-- Setup plugins
+
+-- [[ Configure Telescope ]]
+-- See `:help telescope` and `:help telescope.setup()`
+
+local telescope = require('telescope');
+telescope.setup {
+  defaults = {
+    mappings = {
+      i = {
+        ['<C-u>'] = false,
+        ['<C-d>'] = false,
+      },
+    },
+  },
+}
+
+-- Enable telescope fzf native, if installed
+pcall(telescope.load_extension, 'fzf')
+local builtin = require('telescope.builtin')
+vim.keymap.set('n', '<leader><leader>', builtin.find_files, { desc = 'Find Files' })
+vim.keymap.set('n', '<leader>ss', builtin.live_grep, { desc = '[S]earch [S]tring' })
+vim.keymap.set('n', '<leader>?', builtin.oldfiles, { desc = '[?]Recently opened' })
+vim.keymap.set('n', '<leader>gr', builtin.lsp_references, { desc = '[G]oto [R]eferences' })
+vim.keymap.set('n', '<leader>sb', builtin.buffers, { desc = '[S]earch [B]uffers' })
+vim.keymap.set('n', '<leader>/', function()
+  -- You can pass additional configuration to telescope to change theme, layout, etc.
+  require('telescope.builtin').current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
+    winblend = 10,
+    previewer = false,
+  })
+end, { desc = '[/] Fuzzily search in current buffer' })
+
+-- [[ Configure Comment ]]
+require('Comment').setup()
+
+
+-- [[ Configure fugitive ]]
+vim.keymap.set("n", "<leader>gs", vim.cmd.Git)
+
+
+-- [[ Configure LSP ]]
+local lsp = require('lsp-zero').preset({})
+
+lsp.on_attach(function(client, bufnr)
+    lsp.default_keymaps({buffer = bufnr})
+    vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, { buffer = bufnr, desc = '[R]e[n]ame' })
+    vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, { buffer = bufnr, desc = '[C]ode [A]ction' })
+    vim.keymap.set('n', '<leader>gi', vim.lsp.buf.implementation, { buffer = bufnr, desc = '[G]oto [I]mplementation' })
+end)
+
+lsp.setup()
+
+-- [[ Configure Treesitter ]]
+require('nvim-treesitter.configs').setup {
+    -- A list of parser names, or "all" (the five listed parsers should always be installed)
+    ensure_installed = { "c", "javascript", "typescript", "lua" },
+
+    -- Install parsers synchronously (only applied to `ensure_installed`)
+    sync_install = false,
+
+    -- Automatically install missing parsers when entering buffer
+    -- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
+    auto_install = true,
+
+    highlight = {
+        enable = true,
+
+        -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
+        -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
+        -- Using this option may slow down your editor, and you may see some duplicate highlights.
+        -- Instead of true it can also be a list of languages
+        additional_vim_regex_highlighting = false,
+    },
+    indent = { enable = true, disable = { 'python' } },
+    incremental_selection = {
+        enable = true,
+        keymaps = {
+            init_selection = '<c-space>',
+            node_incremental = '<c-space>',
+            scope_incremental = '<c-s>',
+            node_decremental = '<M-space>',
+        },
+    }
+}
+
+-- [[ Configure Undotree ]]
+vim.keymap.set('n', '<leader>u', vim.cmd.UndotreeToggle)
