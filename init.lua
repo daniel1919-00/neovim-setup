@@ -50,7 +50,27 @@ require('lazy').setup({
         end
     },
 
+    {
+        -- Set lualine as statusline
+        'nvim-lualine/lualine.nvim',
+        -- See `:help lualine.txt`
+        opts = {
+            options = {
+                icons_enabled = false,
+                component_separators = '|',
+                section_separators = '',
+            },
+        },
+    },
+
+    'nvim-tree/nvim-web-devicons',
+
     { 'nvim-telescope/telescope.nvim', dependencies = { 'nvim-lua/plenary.nvim' } },
+
+    {
+        "nvim-telescope/telescope-file-browser.nvim",
+        dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" }
+    },
 
       -- "gc" to comment visual regions/lines
     { 'numToStr/Comment.nvim', opts = {} },
@@ -92,20 +112,6 @@ require('lazy').setup({
     'mbbill/undotree',
     'tpope/vim-fugitive',
 
-    {
-        -- Set lualine as statusline
-        'nvim-lualine/lualine.nvim',
-        -- See `:help lualine.txt`
-        opts = {
-            options = {
-                icons_enabled = false,
-                theme = 'onedark',
-                component_separators = '|',
-                section_separators = '',
-            },
-        },
-    },
-
     { -- LSP Configuration & Plugins
         'neovim/nvim-lspconfig',
         dependencies = {
@@ -127,12 +133,6 @@ require('lazy').setup({
         dependencies = { 'hrsh7th/cmp-nvim-lsp', 'L3MON4D3/LuaSnip', 'saadparwaiz1/cmp_luasnip' },
     },
 
-    {
-        'nvim-tree/nvim-tree.lua',
-        dependencies = {
-            'nvim-tree/nvim-web-devicons'
-        }
-    }
 })
 
 -- Setup plugins
@@ -142,15 +142,22 @@ require('lazy').setup({
 
 local telescope = require('telescope');
 telescope.setup {
-  defaults = {
-    mappings = {
-      i = {
-        ['<C-u>'] = false,
-        ['<C-d>'] = false,
-      },
+    defaults = {
+        mappings = {
+            i = {
+                ['<C-u>'] = false,
+                ['<C-d>'] = false,
+            },
+        },
     },
-  },
+    extensions = {
+        file_browser = {
+            hijack_netrw = true,
+        }
+    }
 }
+
+require("telescope").load_extension "file_browser"
 
 -- Enable telescope fzf native, if installed
 pcall(telescope.load_extension, 'fzf')
@@ -158,9 +165,14 @@ pcall(telescope.load_extension, 'fzf')
 local builtin = require('telescope.builtin')
 vim.keymap.set('n', '<leader><leader>', builtin.find_files, { desc = 'Find Files' })
 vim.keymap.set('n', '<leader>ss', builtin.live_grep, { desc = '[S]earch [S]tring' })
+vim.keymap.set('n', '<leader>fs', builtin.live_grep, { desc = '[F]ind [S]tring' })
+
 vim.keymap.set('n', '<leader>?', builtin.oldfiles, { desc = '[?]Recently opened' })
+vim.keymap.set('n', '<leader>rf', builtin.oldfiles, { desc = '[R]ecent [F]iles' })
+
 vim.keymap.set('n', '<leader>gr', builtin.lsp_references, { desc = '[G]oto [R]eferences' })
 vim.keymap.set('n', '<leader>sb', builtin.buffers, { desc = '[S]earch [B]uffers' })
+
 vim.keymap.set('n', '<leader>/', function()
   -- You can pass additional configuration to telescope to change theme, layout, etc.
   require('telescope.builtin').current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
@@ -168,6 +180,10 @@ vim.keymap.set('n', '<leader>/', function()
     previewer = false,
   })
 end, { desc = '[/] Fuzzily search in current buffer' })
+
+vim.keymap.set('n', '<leader>e', ":Telescope file_browser<CR>", {noremap = true, silent = true, desc = 'Toggl[e] File Tree'})
+vim.keymap.set('n', '<leader>fb', ":Telescope file_browser<CR>", {noremap = true, silent = true, desc = 'Toggl[e] File Tree'})
+
 
 -- [[ Configure Comment ]]
 require('Comment').setup()
@@ -284,13 +300,3 @@ require('nvim-treesitter.configs').setup {
 vim.keymap.set('n', '<leader>u', vim.cmd.UndotreeToggle)
 
 require('nvim-web-devicons').setup()
-
--- [[ Configure nvim-tree ]]
-require("nvim-tree").setup({
-    renderer = {
-        group_empty = true,
-    },
-})
-
-
-vim.keymap.set('n', '<leader>e', ':NvimTreeToggle<CR>', {noremap = true, silent = true, desc = 'Toggl[e] File Tree'})
