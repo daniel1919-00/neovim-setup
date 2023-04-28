@@ -11,7 +11,7 @@ vim.g.maplocalleader = ' '
 
 
 -- Editor Options
-vim.opt.guicursor = ""
+vim.opt.guicursor = { 'a:blinkon1' }
 vim.opt.nu = true
 vim.opt.relativenumber = false
 vim.opt.tabstop = 4
@@ -149,6 +149,7 @@ telescope.setup {
                 ['<C-d>'] = false,
             },
         },
+        path_display = {"truncate"}
     },
     extensions = {
         file_browser = {
