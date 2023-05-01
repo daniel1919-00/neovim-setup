@@ -133,6 +133,12 @@ require('lazy').setup({
         dependencies = { 'hrsh7th/cmp-nvim-lsp', 'L3MON4D3/LuaSnip', 'saadparwaiz1/cmp_luasnip' },
     },
 
+    {
+        "ahmedkhalf/project.nvim",
+        config = function()
+            require("project_nvim").setup()
+        end
+    }
 })
 
 -- Setup plugins
@@ -149,7 +155,7 @@ telescope.setup {
                 ['<C-d>'] = false,
             },
         },
-        path_display = {"truncate"}
+        path_display = {"truncate"},
     },
     extensions = {
         file_browser = {
@@ -158,7 +164,8 @@ telescope.setup {
     }
 }
 
-require("telescope").load_extension "file_browser"
+telescope.load_extension "file_browser"
+telescope.load_extension "projects"
 
 -- Enable telescope fzf native, if installed
 pcall(telescope.load_extension, 'fzf')
@@ -175,8 +182,7 @@ vim.keymap.set('n', '<leader>gr', builtin.lsp_references, { desc = '[G]oto [R]ef
 vim.keymap.set('n', '<leader>sb', builtin.buffers, { desc = '[S]earch [B]uffers' })
 
 vim.keymap.set('n', '<leader>/', function()
-  -- You can pass additional configuration to telescope to change theme, layout, etc.
-  require('telescope.builtin').current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
+  builtin.current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
     winblend = 10,
     previewer = false,
   })
@@ -184,6 +190,7 @@ end, { desc = '[/] Fuzzily search in current buffer' })
 
 vim.keymap.set('n', '<leader>e', ":Telescope file_browser<CR>", {noremap = true, silent = true, desc = 'Toggl[e] File Tree'})
 vim.keymap.set('n', '<leader>fb', ":Telescope file_browser<CR>", {noremap = true, silent = true, desc = 'Toggl[e] File Tree'})
+vim.keymap.set('n', '<leader>p', ":Telescope projects<CR>", {noremap = true, silent = true, desc = 'Recent [P]rojects'})
 
 
 -- [[ Configure Comment ]]
