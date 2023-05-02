@@ -23,7 +23,7 @@ vim.opt.wrap = false
 vim.opt.hlsearch = false
 vim.opt.incsearch = true
 vim.opt.termguicolors = true
-vim.opt.updatetime = 1500
+vim.opt.updatetime = 100
 
 
 -- Install Plugins
