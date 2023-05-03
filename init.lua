@@ -138,6 +138,12 @@ require('lazy').setup({
         config = function()
             require("project_nvim").setup()
         end
+    },
+    {
+        'nvim-tree/nvim-tree.lua',
+        dependencies = {
+            'nvim-tree/nvim-web-devicons'
+        }
     }
 })
 
@@ -159,7 +165,7 @@ telescope.setup {
     },
     extensions = {
         file_browser = {
-            hijack_netrw = true,
+            hijack_netrw = false,
         }
     }
 }
@@ -188,10 +194,16 @@ vim.keymap.set('n', '<leader>/', function()
   })
 end, { desc = '[/] Fuzzily search in current buffer' })
 
-vim.keymap.set('n', '<leader>e', ":Telescope file_browser<CR>", {noremap = true, silent = true, desc = 'Toggl[e] File Tree'})
-vim.keymap.set('n', '<leader>fb', ":Telescope file_browser<CR>", {noremap = true, silent = true, desc = 'Toggl[e] File Tree'})
+vim.keymap.set('n', '<leader>fb', ":Telescope file_browser<CR>", {noremap = true, silent = true, desc = 'Toggle [F]ile [B]rowser'})
 vim.keymap.set('n', '<leader>p', ":Telescope projects<CR>", {noremap = true, silent = true, desc = 'Recent [P]rojects'})
 
+-- [[ Configure nvim-tree ]]
+require("nvim-tree").setup({
+    renderer = {
+        group_empty = true,
+    },
+})
+vim.keymap.set('n', '<leader>e', ':NvimTreeToggle<CR>', {noremap = true, silent = true, desc = 'Toggl[E] File Tree'})
 
 -- [[ Configure Comment ]]
 require('Comment').setup()
