@@ -179,9 +179,7 @@ telescope.setup {
 
 telescope.load_extension "file_browser"
 telescope.load_extension "projects"
-
--- Enable telescope fzf native, if installed
-pcall(telescope.load_extension, 'fzf')
+telescope.load_extension 'fzf'
 
 local builtin = require('telescope.builtin')
 vim.keymap.set('n', '<leader><leader>', builtin.find_files, { desc = 'Find Files' })
@@ -204,10 +202,15 @@ end, { desc = '[/] Fuzzily search in current buffer' })
 vim.keymap.set('n', '<leader>fb', ":Telescope file_browser<CR>", {noremap = true, silent = true, desc = 'Toggle [F]ile [B]rowser'})
 vim.keymap.set('n', '<leader>p', ":Telescope projects<CR>", {noremap = true, silent = true, desc = 'Recent [P]rojects'})
 
+
 -- [[ Configure nvim-tree ]]
 require("nvim-tree").setup({
+    sync_root_with_cwd = false,
     renderer = {
         group_empty = true,
+    },
+    filters = {
+        dotfiles = true,
     },
 })
 vim.keymap.set('n', '<leader>e', ':NvimTreeToggle<CR>', {noremap = true, silent = true, desc = 'Toggl[E] File Tree'})
