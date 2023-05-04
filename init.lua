@@ -179,7 +179,9 @@ telescope.setup {
 
 telescope.load_extension "file_browser"
 telescope.load_extension "projects"
-telescope.load_extension 'fzf'
+
+-- Enable telescope fzf native, if installed
+pcall(telescope.load_extension, 'fzf')
 
 local builtin = require('telescope.builtin')
 vim.keymap.set('n', '<leader><leader>', builtin.find_files, { desc = 'Find Files' })
