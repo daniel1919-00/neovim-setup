@@ -207,7 +207,7 @@ vim.keymap.set('n', '<leader>p', ":Telescope projects<CR>", {noremap = true, sil
 
 -- [[ Configure nvim-tree ]]
 require("nvim-tree").setup({
-    sync_root_with_cwd = false,
+    sync_root_with_cwd = true,
     renderer = {
         group_empty = true,
     },
