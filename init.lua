@@ -9,7 +9,6 @@ vim.g.loaded_netrwPlugin = 1
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
-
 -- Editor Options
 vim.opt.guicursor = { 'a:blinkon1' }
 vim.opt.nu = true
@@ -318,6 +317,22 @@ require('lazy').setup({
                 },
             })
             vim.keymap.set('n', '<leader>e', ':NvimTreeToggle<CR>', {noremap = true, silent = true, desc = 'Toggl[E] File Tree'})
+        end
+    },
+
+    {
+        "windwp/nvim-autopairs",
+        opts = {}
+    },
+
+    {
+        'windwp/nvim-ts-autotag',
+        config = function()
+            require('nvim-treesitter.configs').setup ({
+                autotag = {
+                    enable = true,
+                }
+            })
         end
     }
 })
