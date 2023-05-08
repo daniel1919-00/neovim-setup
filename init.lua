@@ -108,7 +108,6 @@ require('lazy').setup({
             end, { desc = '[/] Fuzzily search in current buffer' })
 
             vim.keymap.set('n', '<leader>fb', ":Telescope file_browser<CR>", {noremap = true, silent = true, desc = 'Toggle [F]ile [B]rowser'})
-            vim.keymap.set('n', '<leader>p', ":Telescope projects<CR>", {noremap = true, silent = true, desc = 'Recent [P]rojects'})
         end
     },
 
