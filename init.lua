@@ -8,6 +8,7 @@ vim.g.loaded_netrwPlugin = 1
 -- Keymaps
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
+vim.keymap.set('n', '<leader>d', '<cmd> lua vim.diagnostic.open_float() <CR>', {desc = 'Diagnostics window'});
 
 -- Editor Options
 vim.opt.guicursor = { 'a:blinkon1' }
@@ -68,7 +69,7 @@ require('lazy').setup({
     },
 
     {   -- Telescope
-        'nvim-telescope/telescope.nvim', 
+        'nvim-telescope/telescope.nvim',
         dependencies = { 'nvim-lua/plenary.nvim' },
         config = function()
             local telescope = require('telescope');
@@ -225,7 +226,7 @@ require('lazy').setup({
             -- Additional lua configuration, makes nvim stuff amazing!
             'folke/neodev.nvim',
         },
-        config = function()       
+        config = function()
             require('neodev').setup()
             local capabilities = vim.lsp.protocol.make_client_capabilities()
             capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
@@ -257,7 +258,7 @@ require('lazy').setup({
         config = function()
             local luasnip = require 'luasnip'
             luasnip.config.setup {}
-            
+
             local cmp = require 'cmp'
             cmp.setup {
                 snippet = {
@@ -299,7 +300,7 @@ require('lazy').setup({
             }
         end
     },
-    
+
     {
         'nvim-tree/nvim-tree.lua',
         dependencies = {
