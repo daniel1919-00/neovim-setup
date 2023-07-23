@@ -85,44 +85,29 @@ require('lazy').setup({
                 },
                 extensions = {
                     file_browser = {
-                        hijack_netrw = false,
+                        hijack_netrw = false
                     }
                 }
             }
 
             local builtin = require('telescope.builtin')
             vim.keymap.set('n', '<leader><leader>', builtin.find_files, { desc = 'Find Files' })
+            vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = '[S]earch [F]iles' })
             vim.keymap.set('n', '<leader>ss', builtin.live_grep, { desc = '[S]earch [S]tring' })
-            vim.keymap.set('n', '<leader>fs', builtin.live_grep, { desc = '[F]ind [S]tring' })
-
-            vim.keymap.set('n', '<leader>?', builtin.oldfiles, { desc = '[?]Recently opened' })
-            vim.keymap.set('n', '<leader>rf', builtin.oldfiles, { desc = '[R]ecent [F]iles' })
-
-            vim.keymap.set('n', '<leader>gr', builtin.lsp_references, { desc = '[G]oto [R]eferences' })
-            vim.keymap.set('n', '<leader>sb', builtin.buffers, { desc = '[S]earch [B]uffers' })
-
-            vim.keymap.set('n', '<leader>/', function()
+            vim.keymap.set('n', '<leader>sb', function()
                 builtin.current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
                     winblend = 10,
                     previewer = false,
                 })
-            end, { desc = '[/] Fuzzily search in current buffer' })
+            end, { desc = 'Fuzzily [S]earch in current [B]uffer' })
 
-            vim.keymap.set('n', '<leader>fb', ":Telescope file_browser<CR>", {noremap = true, silent = true, desc = 'Toggle [F]ile [B]rowser'})
+            vim.keymap.set('n', '<leader>rf', builtin.oldfiles, { desc = '[R]ecent [F]iles' })
+            vim.keymap.set('n', '<leader>e', builtin.oldfiles, { desc = 'R[E]cent Files' })
+
+            vim.keymap.set('n', '<leader>gr', builtin.lsp_references, { desc = '[G]oto [R]eferences' })
+            vim.keymap.set('n', '<leader>b', builtin.buffers, { desc = 'See [B]uffers' })
+
         end
-    },
-
-    {
-        "nvim-telescope/telescope-file-browser.nvim",
-        dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" },
-        config = function()
-            require('telescope').load_extension "file_browser"
-        end
-    },
-
-    {   -- "gc" to comment visual regions/lines
-        'numToStr/Comment.nvim',
-        opts = {}
     },
 
     {
@@ -176,8 +161,9 @@ require('lazy').setup({
                     keymaps = {
                         init_selection = '<c-space>',
                         node_incremental = '<c-space>',
+                        node_decremental = '<S-space>',
                         scope_incremental = '<c-s>',
-                        node_decremental = '<M-space>',
+                        scope_decremental = '<S-s>',
                     },
                 }
             }
@@ -316,7 +302,8 @@ require('lazy').setup({
                     dotfiles = true,
                 },
             })
-            vim.keymap.set('n', '<leader>e', ':NvimTreeToggle<CR>', {noremap = true, silent = true, desc = 'Toggl[E] File Tree'})
+            vim.keymap.set('n', '<leader>fb', ':NvimTreeToggle<CR>', {noremap = true, silent = true, desc = 'Toggl[E] File Tree'})
+            vim.keymap.set('n', '<leader>ft', ':NvimTreeToggle<CR>', {noremap = true, silent = true, desc = 'Toggle [F]ile [T]ree'})
         end
     },
 
