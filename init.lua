@@ -162,8 +162,6 @@ require('lazy').setup({
                         init_selection = '<c-space>',
                         node_incremental = '<c-space>',
                         node_decremental = '<S-space>',
-                        scope_incremental = '<c-s>',
-                        scope_decremental = '<S-s>',
                     },
                 }
             }
@@ -193,7 +191,7 @@ require('lazy').setup({
     {
         'tpope/vim-fugitive',
         config = function()
-            vim.keymap.set("n", "<leader>gs", vim.cmd.Git)
+            vim.keymap.set("n", "<leader>vc", vim.cmd.Git)
         end
     },
 
