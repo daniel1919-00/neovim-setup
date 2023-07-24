@@ -42,11 +42,11 @@ vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup({
     {
-        "EdenEast/nightfox.nvim",
+        "catppuccin/nvim",
         lazy = false,
         priority = 1000,
         config = function()
-            vim.cmd.colorscheme("nightfox")
+            vim.cmd.colorscheme("catppuccin-mocha")
         end
     },
 
@@ -137,7 +137,7 @@ require('lazy').setup({
         config = function()
             require('nvim-treesitter.configs').setup {
                 -- A list of parser names, or "all"
-                ensure_installed = { "lua" },
+                ensure_installed = { "lua", "rust" },
 
                 -- Install parsers synchronously (only applied to `ensure_installed`)
                 sync_install = false,
@@ -171,8 +171,6 @@ require('lazy').setup({
     {
         -- Add indentation guides even on blank lines
         'lukas-reineke/indent-blankline.nvim',
-        -- Enable `lukas-reineke/indent-blankline.nvim`
-        -- See `:help indent_blankline.txt`
         opts = {
             char = '┊',
             show_trailing_blankline_indent = false,
@@ -189,6 +187,7 @@ require('lazy').setup({
     },
 
     {
+        -- Git Wrapper
         'tpope/vim-fugitive',
         config = function()
             vim.keymap.set("n", "<leader>vc", vim.cmd.Git)
@@ -227,8 +226,8 @@ require('lazy').setup({
                             vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, { buffer = bufnr, desc = '[R]e[n]ame' })
                             vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, { buffer = bufnr, desc = '[C]ode [A]ction' })
                             vim.keymap.set('n', '<leader>gi', vim.lsp.buf.implementation, { buffer = bufnr, desc = '[G]oto [I]mplementation' })
-                            vim.keymap.set('n', 'K', vim.lsp.buf.hover, { buffer = bufnr, desc = 'Hover Documentation' })
-                            vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, { buffer = bufnr, desc = 'Signature Documentation' })
+                            vim.keymap.set('n', 'd', vim.lsp.buf.hover, { buffer = bufnr, desc = 'Hover [D]ocumentation' })
+                            vim.keymap.set('n', 'sd', vim.lsp.buf.signature_help, { buffer = bufnr, desc = 'Signature [D]ocumentation' })
                         end,
                     }
                 end,
