@@ -8,7 +8,7 @@ vim.g.loaded_netrwPlugin = 1
 -- Keymaps
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
-vim.keymap.set('n', '<leader>d', '<cmd> lua vim.diagnostic.open_float() <CR>', {desc = 'Diagnostics window'});
+vim.keymap.set('n', '<leader>H', '<cmd> lua vim.diagnostic.open_float() <CR>', {desc = 'Diagnostics window'});
 
 -- Editor Options
 vim.opt.guicursor = { 'a:blinkon1' }
@@ -23,7 +23,7 @@ vim.opt.wrap = false
 vim.opt.hlsearch = false
 vim.opt.incsearch = true
 vim.opt.termguicolors = true
-vim.opt.updatetime = 100
+vim.opt.updatetime = 250
 
 
 -- Install Plugins
@@ -226,7 +226,7 @@ require('lazy').setup({
                             vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, { buffer = bufnr, desc = '[R]e[n]ame' })
                             vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, { buffer = bufnr, desc = '[C]ode [A]ction' })
                             vim.keymap.set('n', '<leader>gi', vim.lsp.buf.implementation, { buffer = bufnr, desc = '[G]oto [I]mplementation' })
-                            vim.keymap.set('n', 'd', vim.lsp.buf.hover, { buffer = bufnr, desc = 'Hover [D]ocumentation' })
+                            vim.keymap.set('n', '<leader>h', vim.lsp.buf.hover, { buffer = bufnr, desc = '[H]over Documentation' })
                             vim.keymap.set('n', 'sd', vim.lsp.buf.signature_help, { buffer = bufnr, desc = 'Signature [D]ocumentation' })
                         end,
                     }

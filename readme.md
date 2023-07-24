@@ -8,12 +8,19 @@ Leader key (LDR) = space
 
 ### Insert mode
 
-* LDR-d - Opens floating diagnostic window -> usefull to see long error messages
+* LDR-H - Opens floating diagnostic window -> usefull to see long error messages
 
 ### Visual mode
 
 * C-space - Init selection + Node incremental selection
 * S-space - Node decremental selection
+
+### Windows
+
+* C-w-s - Split the current window in 2 using the same file
+* C-w-v - Split the current window in 2 Vertically using the same file
+* C-w-n - Opens a new window with an empty file
+* C-w-q - Quit the current window
 
 ## Plugin keybinds
 
@@ -30,7 +37,7 @@ Leader key (LDR) = space
 
 ### Undo Tree
 
-* LDR-u - Opens undo tree
+* LDR-u - Opens [u]ndo tree
 
 ### Fugitive (Git wrapper)
 
@@ -42,5 +49,5 @@ Leader key (LDR) = space
 * LDR-rn - Rename symbol. Mnemonic: [R]e[n]ame
 * LDR-ca - Mnemonic: [C]ode [A]ction
 * LDR-gi - Go to implementation. Mnemonic: [G]oto [I]mplementation
-* LDR-d -  Opens the documentation for the text under the cursor Mnemonic: Hover Documentation
+* LDR-h -  Opens the documentation for the text under the cursor Mnemonic: [H]over Documentation
 * LDR-sd - Opens the signature docs. Mnemonic: Signature [D]ocumentation
