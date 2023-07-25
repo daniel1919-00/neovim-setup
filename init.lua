@@ -3,7 +3,11 @@
 
 -- Neovide configuration (https://neovide.dev/configuration.html)
 if vim.g.neovide then
-    vim.o.guifont = "Source Code Pro:h11"
+    if vim.fn.has('macunix') then
+        vim.o.guifont = "JetBrains Mono:h14"
+    else
+        vim.o.guifont = "JetBrains Mono:h11"
+    end
     vim.opt.linespace = 0
     vim.g.neovide_refresh_rate = 60
     vim.g.neovide_refresh_rate_idle = 5
@@ -19,6 +23,9 @@ vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 vim.keymap.set('n', '<leader>H', '<cmd> lua vim.diagnostic.open_float() <CR>', {desc = 'Diagnostics window'});
 vim.keymap.set('n', '<leader>tw', '<cmd> :set wrap! <CR>', {desc = 'Diagnostics window'});
+vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic message' })
+vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
+vim.keymap.set('n', '<leader>fm', function(_) vim.lsp.buf.format() end, { desc = 'Format current buffer with LSP' })
 
 -- Editor Options
 vim.opt.guicursor = { 'a:blinkon1' }
@@ -35,6 +42,23 @@ vim.opt.incsearch = true
 vim.opt.termguicolors = true
 vim.opt.updatetime = 250
 
+-- Sync clipboard between OS and Neovim.
+vim.o.clipboard = 'unnamedplus'
+vim.o.timeoutlen = 300
+
+-- Set completeopt to have a better completion experience
+vim.o.completeopt = 'menuone,noselect'
+
+-- [[ Highlight on yank ]]
+-- See `:help vim.highlight.on_yank()`
+local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
+vim.api.nvim_create_autocmd('TextYankPost', {
+  callback = function()
+    vim.highlight.on_yank()
+  end,
+  group = highlight_group,
+  pattern = '*',
+})
 
 -- Install Plugins
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
@@ -58,6 +82,10 @@ require('lazy').setup({
         config = function()
             vim.cmd.colorscheme("catppuccin-mocha")
         end
+    },
+
+    {
+        'tpope/vim-sleuth'
     },
 
     {
@@ -293,6 +321,9 @@ require('lazy').setup({
             }
         end
     },
+
+    -- Useful plugin to show you pending keybinds.
+    { 'folke/which-key.nvim', opts = {} },
 
     {
         'nvim-tree/nvim-tree.lua',
