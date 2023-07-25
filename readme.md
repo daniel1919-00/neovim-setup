@@ -14,6 +14,8 @@ Leader key (LDR) = space
 
 * C-space - Init selection + Node incremental selection
 * S-space - Node decremental selection
+* <leader>gc - Comment using Line comment
+* <leader>gb - Comment using block comment
 
 ### Windows
 
@@ -34,6 +36,11 @@ Leader key (LDR) = space
     * LDR-e - Alias.
 * LDR-gr - Opens the LSP references window. Mnemonic: [G]oto [R]eferences
 * LDR-b - Opens the buffers list. Mnemonic: See [B]uffers
+
+### Neotree
+
+* <leader>ft - Open [F]ile [T]ree
+* <leader>fb - Alias
 
 ### Undo Tree
 
