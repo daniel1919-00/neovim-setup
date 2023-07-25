@@ -1,6 +1,15 @@
 -- The kickstart script is awesome!
 -- https://github.com/nvim-lua/kickstart.nvim/blob/master/init.lua
 
+-- Neovide configuration (https://neovide.dev/configuration.html)
+if vim.g.neovide then
+    vim.o.guifont = "Source Code Pro:h11"
+    vim.opt.linespace = 0
+    vim.g.neovide_refresh_rate = 60
+    vim.g.neovide_refresh_rate_idle = 5
+    vim.g.neovide_remember_window_size = true
+end
+
 -- disable netrw at the very start of your init.lua (strongly advised)
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
