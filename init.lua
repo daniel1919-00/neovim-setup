@@ -5,10 +5,11 @@
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
--- Keymaps
+-- Global Keymaps
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 vim.keymap.set('n', '<leader>H', '<cmd> lua vim.diagnostic.open_float() <CR>', {desc = 'Diagnostics window'});
+vim.keymap.set('n', '<leader>tw', '<cmd> :set wrap! <CR>', {desc = 'Diagnostics window'});
 
 -- Editor Options
 vim.opt.guicursor = { 'a:blinkon1' }
